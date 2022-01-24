@@ -13,8 +13,8 @@
 
 ```
 {
-  "apiKey": "NCSPX2S1CWNQ3D1R",
-  "apiSecret": "IXHBDCUIKZKUEDPL3KQFQNOIJ15ZHKVL",
+  "apiKey": "NCSP32S13WNQ3D1R",
+  "apiSecret": "IXHBDCUIKZ333DPL3KQFQNOIJ15ZHKVL",
   "protocol": "https",
   "domain": "api.solapi.com"
 }
