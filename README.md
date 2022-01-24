@@ -9,6 +9,10 @@
 
 [examples folder](https://github.com/solapi/solapi-sso-sdk/tree/master/examples)에서 자세한 예제파일들을 확인하세요.
 
+## Process
+![SSO Process](https://user-images.githubusercontent.com/4575603/150756865-9d68850e-8334-4acd-a155-4488efc45cf6.jpg)
+
+
 ## Configs
 
 ```
