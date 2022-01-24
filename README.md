@@ -14,7 +14,6 @@
 
 
 ## Configs
-
 ```
 {
   "apiKey": "NCSP32S13WNQ3D1R",
