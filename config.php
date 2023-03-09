@@ -5,6 +5,7 @@ function get_config() {
     "apiSecret" => "",
     "protocol" => "https",
     "domain" => "api.solapi.com",
-    "prefix" => ""
+    "prefix" => "",
+    "redirectPage" => "https://console.solapi.com"
   );
 }

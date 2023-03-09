@@ -16,7 +16,7 @@ function get_header($ssoToken) {
   return "Authorization: HMAC-SHA256 apiKey={$apiKey}, date={$date}, salt={$salt}, signature={$signature}";
 }
 
-function request($method, $resource, $data = false, $ssoToken = null) {
+function request($method, $resource, $data = null, $ssoToken = null) {
   global $config;
   $url = "{$config['protocol']}://{$config['domain']}";
   if ($config['prefix']) $url .= $config['prefix'];
@@ -37,12 +37,21 @@ function request($method, $resource, $data = false, $ssoToken = null) {
     curl_setopt($curl, CURLOPT_HTTPHEADER, array(get_header($ssoToken), "Content-Type: application/json"));
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
     if (curl_error($curl)) {
       print curl_error($curl);
     }
     $result = curl_exec($curl);
+
+    // statuscode 가 302 리다이렉트이면 json_decode를 안한다.
+    $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    if ($httpcode == 302 || $httpcode == 404) {
+      $result;
+    } else {
+      $result = json_decode($result);
+    }
     curl_close($curl);
-    return json_decode($result);
+    return $result;
   } catch (Exception $err) {
     return $err;
   }
@@ -56,11 +65,7 @@ function create_sso_token($params) {
   return request("POST", "/appstore/v2/sso/connect", $params);
 }
 
-function get_oauth2_token($ssoToken) {
-  return request("GET", "/appstore/v2/sso/issue-oauth2-token", false, $ssoToken);
-}
-
-function set_oauth2_token($ssoToken, $params) {
-  return request("POST", "/appstore/v2/sso/connect-homepage", $params, $ssoToken);
+function hompage_login($params) {
+  return request("GET", "/appstore/v2/sso/connect-homepage", $params);
 }
 

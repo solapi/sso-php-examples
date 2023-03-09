@@ -19,6 +19,7 @@
   "apiKey": "NCSP32S13WNQ3D1R",
   "apiSecret": "IXHBDCUIKZ333DPL3KQFQNOIJ15ZHKVL",
   "protocol": "https",
-  "domain": "api.solapi.com"
+  "domain": "api.solapi.com",
+  "redirectPage": "https://console.solapi.com"
 }
 ```
