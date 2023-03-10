@@ -1,7 +1,7 @@
 <?php
 $config = require_once(__DIR__ . "/../config.php");
-$domain = $config->domain;
-$redirectPage = $config->redirectPage;
+$domain = $config["domain"];
+$redirectPage = $config["redirectPage"];
 require_once("../lib/sso.php");
 
 ### Step 1. 앱 아이디와 가입할 회원정보를 이용하여 SSO Token 발급
@@ -13,18 +13,18 @@ $params = array(
 );
 // 파라미터 정보로 회원가입을 시킨 후 (이미 있으면 넘어감) SSO Token을 리턴 받는다.
 $result = create_sso_token($params);
-if ($result->errorCode) {
-  print_r($result);
-  print_r("\n");
+if (property_exists($result, 'errorCode')) {
   return;
 }
 $ssoToken = $result->ssoToken;
+print_r($ssoToken);
+print_r("\n");
 
 ### Step 2. 발급받은 SSO Token으로 API 요청
 // 발급받은 SSO_TOKEN으로 API 요청이 가능하다 
 // 해당 앱에서 이 기능을 호출하는 서버의 IP를 허용하여야 작동 가능하다.
 // IP 허용 문의는 사이트에서 관리자에게 문의.
 // 호출 가능한 API는 README 파일을 참고해주세요.
-$memberInfo = request("GET", "{$domain}/users/v1/member", null, $ssoToken);
+$memberInfo = request("GET", "/users/v1/member", null, $ssoToken);
 print_r($memberInfo);
 print_r("\n");

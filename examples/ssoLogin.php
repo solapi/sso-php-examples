@@ -1,7 +1,7 @@
 <?php
-$config = require_once(__DIR__ . "/../config.php");
-$domain = $config->domain;
-$redirectPage = $config->redirectPage;
+$config = require(__DIR__ . "/../config.php");
+$domain = $config["domain"];
+$mysiteRedirectPage = $config["mysiteRedirectPage"];
 require_once("../lib/sso.php");
 
 ### Step 1. 앱 아이디와 가입할 회원정보를 이용하여 SSO Token 발급
@@ -23,17 +23,22 @@ $ssoToken = $result->ssoToken;
 ### Step 2. SSO Token으로 SSO Code 발급
 // 허용된 IP에서만 작동합니다.
 // 홈페이지 로그인에 필요한 SSO Code값을 발급받기 위한 코드입니다.
-$ssoCode = get_sso_code($ssoToken);
-print_r($ssoCode);
+$ssoCodeResult = get_sso_code($ssoToken);
+$ssoCode = $ssoCodeResult->ssoCode;
+print_r($ssoCodeResult);
 print_r("\n");
 
 ### Step 3. SSO Token으로 홈페이지 로그인 처리
 // 로그인 후 redirectUri로 리다이렉트 되며 자동으로 로그인 처리가 됩니다.
-// https://##마이사이트 주소##/api/sso/connect-homepage?redirectUri=##마이사이트 주소##/dashboard&ssoCode=##SSO Code##
 $params = array(
   "ssoCode" => $ssoCode,
-  "redirectUri" => "${redirectPage}/dashboard" // 성공 후 리다이렉트할 주소 (Optional)
+  "redirectUri" => "${mysiteRedirectPage}/dashboard" // 성공 후 리다이렉트할 주소 (Optional)
 );
 $loginResult = hompage_login($params);
 print_r($loginResult);
 print_r("\n");
+
+### 아래처럼 브라우저에서 직접 요청할수도 있습니다. 
+// https://##마이사이트 주소##/api/appstore/v2/sso/connect-homepage?redirectUri=##마이사이트 주소##/dashboard&ssoCode=##SSO Code##
+// print_r("{$mysiteRedirectPage}/api/appstore/v2/sso/connect-homepage?redirectUri={$mysiteRedirectPage}/dashboard&ssoCode={$ssoCode}");
+// print_r("\n");

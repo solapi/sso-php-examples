@@ -1,11 +1,12 @@
 <?php
 function get_config() {
   return array(
-    "apiKey" => "",
-    "apiSecret" => "",
+    "apiKey" => "##API_KEY##",
+    "apiSecret" => "##API_SECRET##",
     "protocol" => "https",
     "domain" => "api.solapi.com",
     "prefix" => "",
-    "redirectPage" => "https://console.solapi.com"
+    "mysiteRedirectPage" => "https://##마이사이트 주소##"
   );
 }
+return get_config();
