@@ -61,6 +61,10 @@ function get_sso_token($appId, $customerKey) {
   return request("GET", "/appstore/v2/sso/apps/$appId/customer-keys/$customerKey");
 }
 
+function get_sso_code($ssoToken) {
+  return request("GET", "/appstore/v2/sso/code", null, $ssoToken);
+}
+
 function create_sso_token($params) {
   return request("POST", "/appstore/v2/sso/connect", $params);
 }
