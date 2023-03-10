@@ -1,7 +1,6 @@
 <?php
 $config = require_once(__DIR__ . "/../config.php");
 $domain = $config["domain"];
-$redirectPage = $config["redirectPage"];
 require_once("../lib/sso.php");
 
 ### Step 1. 앱 아이디와 가입할 회원정보를 이용하여 SSO Token 발급
